@@ -73,6 +73,9 @@ public class SparseMatrix  {
 
   public String toHtml(Archipelago arch) {
   	int mat[] = new int[rowNum()];
+  	for(int i=0; i<mat.length; i++) {
+  		mat[i] = -1;
+  	}
   	for(Island isl: arch.iterator()) {
   		for(Coordinate c : isl.iterator()) {
   			mat[c.row] = c.col;
@@ -88,8 +91,10 @@ public class SparseMatrix  {
   	int row = 0;
   	for(String label : rLabels) {
       result += "<tr><td>" + label + "</td>";
-      if(mat[row]>0) {
-        result += "<td colspan=\""+mat[row]+"\"></td>";
+      if(mat[row]>-1) {
+      	if(mat[row]>0) {
+      		result += "<td colspan=\""+mat[row]+"\"></td>";
+      	}
     		result += "<td BGCOLOR=\"lightgreen\">M</td>";
   		}
       result += "</tr>\n";
