@@ -167,6 +167,20 @@ public class MatrixLinkerTest extends AbstractTest {
   	isl.add(new Coordinate(2, 2));
   	assertEquals(3,isl.size());
   	assertEquals(1,isl.direction());
+  	Island isl_2 = new Island();
+  	isl_2.add(new Coordinate(274,303));
+  	isl_2.add(new Coordinate(275,304));
+  	isl_2.add(new Coordinate(276,305));
+  	isl_2.add(new Coordinate(277,306));
+  	isl_2.add(new Coordinate(278,307));
+  	isl_2.add(new Coordinate(279,308));
+  	isl_2.add(new Coordinate(280,309));
+  	isl_2.add(new Coordinate(281,310));
+  	isl_2.add(new Coordinate(282,311));
+  	isl_2.add(new Coordinate(281,312));
+  	assertEquals(9,isl_2.size());
+  	isl_2.add(new Coordinate(283,312));
+  	assertEquals(10,isl_2.size());
   }
   
   @Test

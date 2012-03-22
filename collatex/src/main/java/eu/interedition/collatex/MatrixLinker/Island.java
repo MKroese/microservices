@@ -37,7 +37,7 @@ public class Island {
 				}	else {
 					Coordinate existing_coordinate = island.get(0);
 					if(existing_coordinate.col!=coordinate.col) {
-  					int new_direction = (existing_coordinate.row - coordinate.row) / (existing_coordinate.col - coordinate.col);
+  					float new_direction = ((float)existing_coordinate.row - (float)coordinate.row) / ((float)existing_coordinate.col - (float)coordinate.col);
   					if(new_direction==direction)
   						result = island.add(coordinate);
 					}
