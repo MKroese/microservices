@@ -207,20 +207,34 @@ public class ArchipelagoWithVersions extends Archipelago {
 			else {
 				Island island1 = result.get(i);
 				if(island1.size()<=isl.size()) {
-  				double tot_d_1 = 0.0;
-  				double tot_d_2 = 0.0;
+					double dist_1_a = 0.0;
+					double dist_1_b = 0.0;
+					double dist_2_a = 0.0;
+					double dist_2_b = 0.0;
   				for(int j=0; j<i; j++) {
   				  Island island2 = result.get(j);
-  				  tot_d_1 += distance(island2,island1);
-  				  tot_d_2 += distance(island2,isl);
+  				  double d = distance(island2,island1);
+  				  if(dist_1_a==0.0 || d < dist_1_a) {
+  				  	dist_1_a = d;
+  				  } else if(dist_1_b==0.0 || d < dist_1_b) {
+  				  	dist_1_b = d;
+  				  }
+  				  d = distance(island2,isl);
+  				  if(dist_2_a==0.0 || d < dist_2_a) {
+  				  	dist_2_a = d;
+  				  } else if(dist_2_b==0.0 || d < dist_2_b) {
+  				  	dist_2_b = d;
+  				  }
   				}
-  				System.out.println("tot_d_1: "+tot_d_1);
-  				System.out.println("tot_d_2: "+tot_d_2);
+  				double tot_d_1 = dist_1_a + dist_1_b;
+  				double tot_d_2 = dist_2_a + dist_2_b;
+//  				System.out.println("tot_d_1: "+tot_d_1);
+//  				System.out.println("tot_d_2: "+tot_d_2);
   				if(tot_d_2<tot_d_1) {
   					result.remove(i);
   					result.add(isl);
   				}
-				}
+  			}
 			}
 		}
 	  return result;
@@ -266,7 +280,7 @@ public class ArchipelagoWithVersions extends Archipelago {
   	list.add(new Coordinate(colNum-1, rowNum-1));
 //  	System.out.println("1");
   	Archipelago createFirstVersion = createFirstVersion();
-  	System.out.println("2");
+  	System.out.println("2: " + createFirstVersion);
 //  	output.println(mat.toHtml(this));
   	output.println(mat.toHtml(createFirstVersion));
 //  	System.out.println("3");
@@ -466,7 +480,7 @@ public class ArchipelagoWithVersions extends Archipelago {
 //				System.out.println("colIslNo (" +colIslNo + ") < rowIslNo ("+ rowIslNo + ")");
 				lem = "";
 				rdg = "";
-				if(listOrderedByRow.get(rowCount+1)[0]<rowIslNo) {
+				if((rowCount+1)< listOrderedByRow.size() && listOrderedByRow.get(rowCount+1)[0]<rowIslNo) {
 					lem = "[VERPLAATST"+rowIslNo+"]";
 					rdg = getTekst(rowLabels,listOrderedByRow.get(rowCount)[2],listOrderedByRow.get(rowCount)[4]);
 					rowCount++;
@@ -499,7 +513,7 @@ public class ArchipelagoWithVersions extends Archipelago {
 		}
 		output.println("</xml>");
 		output.flush();
-	  return result + "</xml>";
+	  return result + "\n</xml>";
   }
 
 	private String drukAfArray(Integer[] integers) {
@@ -526,7 +540,7 @@ public class ArchipelagoWithVersions extends Archipelago {
 				lem = "[WEGGELATEN]";
 			if(rdg.isEmpty())
 				rdg = "[WEGGELATEN]";
-			result += "  <app>"+ newLine;
+			result += "\n  <app>"+ newLine;
 			result += "    <lem>"+lem.trim()+"</lem>" + newLine;
 			result += "    <rdg>"+rdg.trim()+"</rdg>" + newLine;
 			result += "  </app>" + newLine;
